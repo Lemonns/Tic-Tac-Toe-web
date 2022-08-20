@@ -12,7 +12,7 @@ const gameBoard = (() => {
     let html_board = document.querySelector('.square-grid')
 
     const reset = () => {
-        console.log("reset")
+        console.log("w")
         for (let i = 0; i < board.length; i++) {
           board[i] = "";
         }
@@ -50,14 +50,21 @@ const gameBoard = (() => {
 const game = (() => {
     const resetBtn = document.querySelector('.reset-btn')
     let turns = 1;
+    let winner = false
     const player1 = Player('Player 1', 'X');
     const player2 = Player('Player 2', 'O');
     const squares = document.querySelectorAll('.square');
     let board = gameBoard.board;
 
+    const activePlayer = () => {
+        return turns % 2 === 1 ? player1 : player2
+    }
+
+    let currentPlayer = activePlayer()
     resetBtn.addEventListener('click', (e) => {
         gameBoard.reset()
-        gameInfo.textContent = 'Player 1  (X)'
+        turns = 1;
+        gameInfo.textContent = `${currentPlayer.name} (${currentPlayer.sign})`
         let crosses = document.querySelectorAll('#X')
         let circles = document.querySelectorAll('#O')
         for (let i = 0; i < circles.length; i++) {
@@ -66,8 +73,9 @@ const game = (() => {
         for (let i = 0; i < crosses.length; i++) {
             crosses[i].textContent = ""
         }
-        play()
+        winner = false
     })
+
 
     const infoDisplay = (sign) => {
         if (sign === 'X') {
@@ -78,11 +86,6 @@ const game = (() => {
         }
     }
 
-    const activePlayer = () => {
-        return turns % 2 === 1 ? player1 : player2
-    }
-    function play() {
-    let winner = false
     squares.forEach((square) => {
         square.addEventListener('click', () => {
             if (winner != true) {
@@ -107,7 +110,7 @@ const game = (() => {
             }
         })
     })
-}
+
     const isFull = () => {
         if (board.includes("")) {
             console.log('not full')
