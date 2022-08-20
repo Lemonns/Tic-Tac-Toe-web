@@ -12,7 +12,7 @@ const gameBoard = (() => {
     let html_board = document.querySelector('.square-grid')
 
     const reset = () => {
-        console.log("w")
+        console.log("reset")
         for (let i = 0; i < board.length; i++) {
           board[i] = "";
         }
@@ -55,7 +55,6 @@ const game = (() => {
     const squares = document.querySelectorAll('.square');
     let board = gameBoard.board;
 
-
     resetBtn.addEventListener('click', (e) => {
         gameBoard.reset()
         gameInfo.textContent = 'Player 1  (X)'
@@ -69,7 +68,6 @@ const game = (() => {
         }
         play()
     })
-
 
     const infoDisplay = (sign) => {
         if (sign === 'X') {
